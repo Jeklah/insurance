@@ -1,0 +1,30 @@
+*.csv
+*.xls
+*.7z
+MaritimeDemo/Scripts/.ipynb_checkpoints/
+TaxiDemo/Scripts/.ipynb_checkpoints/
+derby.log
+metastore_db/
+__pycache__/
+<<<<<<< HEAD
+[{
+    "Latitude":null,
+    "Longitude": null,
+    "Date": "",
+    "Time": "",
+    "MMSI": "",
+    "IMO": "",
+    "Heading": "",
+    "RadarID": "",
+    "CallSign": "",
+    "VesselName": "FV Anthony",
+    "VesselType": "Fishing Vessel",
+    "Status": "",
+    "Width": "",
+    "Length": "",
+    "Draught": "",
+    "GrossTonnage": ""
+}]
+=======
+testServer.py
+>>>>>>> 034a688b5f8f85f8677c3bd8fb91ab64dd155747
