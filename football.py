@@ -32,3 +32,4 @@ fig = px.scatter(new_df, x='Overall', y='Age', color='Name')
 
 # Plot
 st.plotly_chart(fig)
+x
