@@ -8,6 +8,7 @@ import plotly_express as px
 '''
 # Read data from csv file
 df = st.cache(pd.read_csv)('Auto_Insurance_Claims_Sample.csv')
+gender = df['Gender']
 
 # Setting up the sidebar menu
 educationLvl = st.sidebar.multiselect(
@@ -19,10 +20,7 @@ coverageLvl = st.sidebar.multiselect(
 employeed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
-if st.sidebar.checkbox('Male'):
-    df['Gender'].isin(gendMaleChkBx)
-if st.sidebar.checkbox('Female'):
-    df['Gender'].isin(gendFemChkBx)
+
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -33,11 +31,16 @@ if len(coverageLvl) == 0:
     coverageLvl = df['Coverage'].unique()
 if len(employeed) == 0:
     employeed = df['EmploymentStatus'].unique()
+if st.sidebar.checkbox('Male'):
+    gender = 'M'
+if st.sidebar.checkbox('Female'):
+    gender = 'F'
 
 filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
-                (df['EmploymentStatus'].isin(employeed))]
+                (df['EmploymentStatus'].isin(employeed)) &
+                (df['Gender'] == gender)]
 
 if st.checkbox('Do you want to see the data?'):
     st.write(df)
