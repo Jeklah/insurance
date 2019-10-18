@@ -17,7 +17,7 @@ states = st.sidebar.multiselect(
     'Show clients living in state:', df['State'].unique())
 coverageLvl = st.sidebar.multiselect(
     'Show clients with coverage level:', df['Coverage'].unique())
-employeed = st.sidebar.multiselect(
+employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
 
@@ -29,8 +29,8 @@ if len(states) == 0:
     states = df['State'].unique()
 if len(coverageLvl) == 0:
     coverageLvl = df['Coverage'].unique()
-if len(employeed) == 0:
-    employeed = df['EmploymentStatus'].unique()
+if len(employed) == 0:
+    employed = df['EmploymentStatus'].unique()
 if st.sidebar.checkbox('Male'):
     gender = 'M'
 if st.sidebar.checkbox('Female'):
@@ -39,7 +39,7 @@ if st.sidebar.checkbox('Female'):
 filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
-                (df['EmploymentStatus'].isin(employeed)) &
+                (df['EmploymentStatus'].isin(employed)) &
                 (df['Gender'] == gender)]
 
 if st.checkbox('Do you want to see the data?'):
