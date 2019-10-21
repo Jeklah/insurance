@@ -55,15 +55,20 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
     points = alt.Chart(df).mark_point().encode(
         x='Months Since Last Claim',
         y='Total Claim Amount',
-        color=alt.condition(brush, 'Total Claim Amount',
-                            alt.value('lightgrey'))
+        color=alt.condition(brush, 'Policy Type',
+                            alt.ColorValue('grey')),
+        tooltip=['Total Claim Amount', 'Months Since Last Claim']
     ).add_selection(
         brush
+    ).properties(
+        width=500,
+        height=500
     )
     bars = alt.Chart(df).mark_bar().encode(
         y='Months Since Last Claim:N',
         color='Months Since Last Claim:N',
-        x='count(Total Claim Amount):Q'
+        x='count(Total Claim Amount):Q',
+        tooltip=['Total Claim Amount', 'Months Since Last Claim']
     ).transform_filter(
         brush
     )
