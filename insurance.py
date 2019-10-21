@@ -48,6 +48,8 @@ if st.checkbox('Do you want to see the data?'):
 if st.checkbox('Do you want to see the filtered data?'):
     st.write(filteredDf)
 
+
+# scatter graph with histogram depending on whats selected in the scatter graph.
 if st.checkbox('Would you like to see a comparison between total claim amount and months since last claim?'):
     brush = alt.selection(type='interval')
     points = alt.Chart(df).mark_point().encode(
