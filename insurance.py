@@ -61,8 +61,8 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
     ).add_selection(
         brush
     ).properties(
-        width=500,
-        height=500
+        width=650,
+        height=650
     )
 
     bars = alt.Chart(df).mark_bar().encode(
@@ -72,5 +72,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         tooltip=['Total Claim Amount', 'Months Since Last Claim']
     ).transform_filter(
         brush
+    ).properties(
+        width=800
     )
     points & bars
