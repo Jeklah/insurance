@@ -51,8 +51,12 @@ if st.checkbox('Do you want to see the filtered data?'):
 
 # scatter graph with histogram depending on whats selected in the scatter graph.
 if st.checkbox('Would you like to see a comparison between total claim amount and months since last claim?'):
+    if st.checkbox('Would you like to use the current filter for the chart?'):
+        chartDf=filteredDf
+    else:
+        chartDf=df
     brush = alt.selection(type='interval')
-    points = alt.Chart(df).mark_point().encode(
+    points = alt.Chart(chartDf).mark_point().encode(
         x='Months Since Last Claim',
         y='Total Claim Amount',
         color=alt.condition(brush, 'Policy Type',
@@ -65,7 +69,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         height=650
     )
 
-    bars = alt.Chart(df).mark_bar().encode(
+    bars = alt.Chart(chartDf).mark_bar().encode(
         y='Months Since Last Claim:N',
         color='Policy Type',
         x='count(Total Claim Amount):Q',
