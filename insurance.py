@@ -21,6 +21,7 @@ coverageLvl = st.sidebar.multiselect(
 employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
+policyAge = st.slider('Policy Age in Months:', 0, 120, 0, 1)
 
 # Filter data_frame
 if len(educationLvl) == 0:
