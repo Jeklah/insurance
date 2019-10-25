@@ -21,7 +21,7 @@ coverageLvl = st.sidebar.multiselect(
 employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
-policyAge = st.slider('Policy Age in Months:', 0, 120, 0, 1)
+policyAge = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -41,7 +41,8 @@ filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
-                (df['Gender'] == gender)]
+                (df['Gender'] == gender) &
+                (df['Months Since Policy Inception'] == policyAge)]
 
 if st.checkbox('Do you want to see the data?'):
     st.write(df)
@@ -81,3 +82,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         width=800
     )
     points & bars
+
+# histogram with lines for policy age against payout and policy type
+if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
+
