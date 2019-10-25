@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly_express as px
 import altair as alt
+import plotly.figure_factory as ff
 
 '''
 # An Insurance Statistics WebApp
@@ -85,4 +86,14 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
+    policyType = df['Policy Type']
+    st.echo policyType
+    payout = df['Claim Amount']
 
+    hist_data = [policyAge, policyType, payout]
+
+    histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
+
+    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[0, 25, 120])
+
+    st.plotly_chart(fig)
