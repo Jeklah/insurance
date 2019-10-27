@@ -23,9 +23,10 @@ coverageLvl = st.sidebar.multiselect(
 employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
-policyAgeSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
+policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
-policyAge = array.array('i', (0 for i in range(0, policyAgeSldVal)))
+policyAgeArr = array.array('i', (0 for i in range(0, policyAgeArrSldVal)))
+policyAgeList = policyAgeArr.tolist()
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -46,7 +47,7 @@ filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
                 (df['Gender'] == gender) &
-                (df['Months Since Policy Inception'] == policyAge)]
+                (df['Months Since Policy Inception'] == policyAgeArr)]
 
 if st.checkbox('Do you want to see the data?'):
     st.write(df)
@@ -89,9 +90,9 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    payout = df['Claim Amount']
+    payout = pd.to_numeric(df['Claim Amount'] , downcast='signed')
     policyType = df['Policy Type']
-    hist_data = [policyAge, policyType, payout]
+    hist_data = [policyAgeList, policyType, payout]
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
