@@ -1,3 +1,4 @@
+import array
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -22,7 +23,9 @@ coverageLvl = st.sidebar.multiselect(
 employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
-policyAge = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
+policyAgeSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
+
+policyAge = array.array('i', (0 for i in range(0, policyAgeSldVal)))
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -86,10 +89,8 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    policyType = df['Policy Type']
-    st.echo policyType
     payout = df['Claim Amount']
-
+    policyType = df['Policy Type']
     hist_data = [policyAge, policyType, payout]
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
