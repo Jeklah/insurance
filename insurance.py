@@ -27,6 +27,8 @@ policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
 policyAgeArr = array.array('i', (0 for i in range(0, policyAgeArrSldVal)))
 policyAgeList = policyAgeArr.tolist()
+policyTypeList = df['Policy Type'].tolist()
+
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -47,7 +49,7 @@ filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
                 (df['Gender'] == gender) &
-                (df['Months Since Policy Inception'] == policyAgeArr)]
+                (df['Months Since Policy Inception'] == policyAgeArrSldVal)]
 
 if st.checkbox('Do you want to see the data?'):
     st.write(df)
@@ -80,7 +82,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         y='Months Since Last Claim:N',
         color='Policy Type',
         x='count(Total Claim Amount):Q',
-        tooltip=['Total Claim Amount', 'Months Since Last Claim']
+        tooltip=['Total Claim Amount', 'Molnths Since Last Claim']
     ).transform_filter(
         brush
     ).properties(
@@ -90,9 +92,8 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    payout = pd.to_numeric(df['Claim Amount'] , downcast='signed')
-    policyType = df['Policy Type']
-    hist_data = [policyAgeList, policyType, payout]
+    payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned')
+    hist_data = [policyAgeList, policyTypeList, payout]
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
