@@ -1,3 +1,4 @@
+import math
 import array
 import streamlit as st
 import pandas as pd
@@ -82,7 +83,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         y='Months Since Last Claim:N',
         color='Policy Type',
         x='count(Total Claim Amount):Q',
-        tooltip=['Total Claim Amount', 'Molnths Since Last Claim']
+        tooltip=['Total Claim Amount', 'Months Since Last Claim']
     ).transform_filter(
         brush
     ).properties(
@@ -97,6 +98,6 @@ if st.checkbox('Would you like to see a histogram for policy age and type agains
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
-    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[0, 25, 120])
+    fig = ff.create_distplot(float(input(hist_data)), histGrpLabels, bin_size=[0.0, 25.0, 120.0])
 
     st.plotly_chart(fig)
