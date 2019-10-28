@@ -26,10 +26,12 @@ employed = st.sidebar.multiselect(
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
-policyAgeArr = array.array('i', (0 for i in range(0, policyAgeArrSldVal)))
+policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
-
+st.markdown(policyAgeArr)
+st.markdown(policyAgeList)
+st.markdown(policyAgeArrSldVal)
 
 # Filter data_frame
 if len(educationLvl) == 0:
