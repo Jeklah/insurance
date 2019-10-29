@@ -100,7 +100,8 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 # ated with agelist
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    hist_data = [policyAgeList, payout]
+    hist_data = df[(df['Policy Age'].isin(policyInception)) &
+                   (df['Total Claim Amount'].isin(payout))]
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
