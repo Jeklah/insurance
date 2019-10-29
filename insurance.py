@@ -47,13 +47,14 @@ if st.sidebar.checkbox('Male'):
 if st.sidebar.checkbox('Female'):
     gender = 'F'
 
+st.markdown(len(df['Months Since Policy Inception']))
+
 filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
                 (df['Gender'] == gender) &
-                (df['Months Since Policy Inception'] == policyAgeArrSldVal)]
-
+                (df['Months Since Policy Inception'].isin(policyAgeList))]
 if st.checkbox('Do you want to see the data?'):
     st.write(df)
 
