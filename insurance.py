@@ -98,6 +98,6 @@ if st.checkbox('Would you like to see a histogram for policy age and type agains
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
-    fig = ff.create_distplot(float(input(hist_data)), histGrpLabels, bin_size=[0.0, 25.0, 120.0])
+    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[0.0, 25.0, 120.0])
 
     st.plotly_chart(fig)
