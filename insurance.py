@@ -96,14 +96,15 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         width=800
     )
     points & bars
-
+# hist_data content needs to be same length, so payout needs to be associa
+# ated with agelist
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
     hist_data = [policyAgeList, payout]
 
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
 
-    fig = ff.create_distplot(float(input(hist_data)), histGrpLabels, bin_size=25.0)
+    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=25.0)
 
     st.plotly_chart(fig)
 
