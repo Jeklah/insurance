@@ -29,9 +29,11 @@ policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
-st.markdown(policyAgeArr)
-st.markdown(policyAgeList)
-st.markdown(policyAgeArrSldVal)
+
+
+# st.markdown(policyAgeArr)
+# st.markdown(policyAgeList)
+# st.markdown(policyAgeArrSldVal)
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -46,9 +48,9 @@ if st.sidebar.checkbox('Male'):
     gender = 'M'
 if st.sidebar.checkbox('Female'):
     gender = 'F'
+policyInception = df[(df['Months Since Policy Inception'].isin(policyAgeList))]
 
-st.markdown(len(df['Months Since Policy Inception']))
-
+st.markdown(len(policyInception))
 filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
