@@ -27,11 +27,13 @@ st.sidebar.markdown('Do you want to look up Male or Female clients?')
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
+policyAgeList2 = [range(1, policyAgeArrSldVal+1)]
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
+policyTypeArr = df['Policy Type'].to_numpy()
 policyTypeDf = df['Policy Type']
 policyAgeDf = pd.Series(policyAgeArr)
-payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned')
+payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned').tolist()
 st.markdown(payout)
 
 # Filter data_frame
@@ -98,16 +100,15 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 # ated with agelist
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    payoutList = payout.tolist()
-    st.markdown(type(policyAgeDf))
-    st.markdown(policyAgeDf)
+    st.markdown(type(policyAgeList))
+    st.markdown(policyAgeList)
     st.markdown(type(payout))
     st.markdown(payout)
-    st.markdown(type(policyTypeDf))
-    st.markdown(policyTypeDf)
-    hist_data = [policyAgeList, policyTypeList, payout]
+    st.markdown(type(policyTypeList))
+    st.markdown(policyTypeList)
+    hist_data = [policyAgeList, payout, policyTypeList]
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
-    st.markdown(hist_data)
+    # st.markdown(hist_data)
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=25.0)
 
     st.plotly_chart(fig)
