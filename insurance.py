@@ -29,7 +29,7 @@ policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
-
+policyAgeDf = pd.Series(policyAgeArr)
 payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned')
 st.markdown(payout)
 # st.markdown(policyAgeArr)
@@ -101,7 +101,8 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
     payoutList = payout.tolist()
-    st.markdown(policyAgeList)
+    st.markdown(type(policyAgeDf))
+    st.markdown(type(payout))
     hist_data = df[(df['Months Since Policy Inception'].isin(policyAgeList)) &
                     (df['Total Claim Amount'].isin(payoutList))]
     hist_data_list = hist_data
