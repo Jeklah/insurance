@@ -29,12 +29,10 @@ policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
+policyTypeDf = df['Policy Type']
 policyAgeDf = pd.Series(policyAgeArr)
 payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned')
 st.markdown(payout)
-# st.markdown(policyAgeArr)
-# st.markdown(policyAgeList)
-# st.markdown(policyAgeArrSldVal)
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -102,11 +100,16 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
     payoutList = payout.tolist()
     st.markdown(type(policyAgeDf))
+    st.markdown(policyAgeDf)
     st.markdown(type(payout))
+    st.markdown(payout)
+    st.markdown(type(policyTypeDf))
+    st.markdown(policyTypeDf)
     hist_data = df[(df['Months Since Policy Inception'].isin(policyAgeList)) &
+                    (df['Policy Type'].isin(policyTypeList)) &
                     (df['Total Claim Amount'].isin(payoutList))]
-    hist_data_list = hist_data
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
+    st.markdown(hist_data)
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=25.0)
 
     st.plotly_chart(fig)
