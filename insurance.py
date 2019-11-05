@@ -105,9 +105,7 @@ if st.checkbox('Would you like to see a histogram for policy age and type agains
     st.markdown(payout)
     st.markdown(type(policyTypeDf))
     st.markdown(policyTypeDf)
-    hist_data = df[(df['Months Since Policy Inception'].isin(policyAgeList)) &
-                    (df['Policy Type'].isin(policyTypeList)) &
-                    (df['Total Claim Amount'].isin(payoutList))]
+    hist_data = [policyAgeList, policyTypeList, payout]
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
     st.markdown(hist_data)
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=25.0)
