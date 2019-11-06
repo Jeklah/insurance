@@ -27,6 +27,7 @@ st.sidebar.markdown('Do you want to look up Male or Female clients?')
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 
+lastClaimList = [range(0, 70)]
 policyAgeList2 = [range(1, policyAgeArrSldVal+1)]
 policyAgeList = policyAgeArr.tolist()
 policyTypeList = df['Policy Type'].tolist()
@@ -50,6 +51,7 @@ if st.sidebar.checkbox('Male'):
 if st.sidebar.checkbox('Female'):
     gender = 'F'
 policyInception = df[(df['Months Since Policy Inception'].isin(policyAgeList))]
+lastClaim = df[(df['Months Since Last Claim'].isin(lastClaimList))]
 
 st.markdown(len(policyInception))
 filteredDf = df[(df['Education'].isin(educationLvl)) &
