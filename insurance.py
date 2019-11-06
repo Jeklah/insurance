@@ -105,8 +105,8 @@ if st.checkbox('Would you like to see a histogram for policy age and type agains
 
     payoutFloatList = np.asarray(payout)
 
-    hist_data = [policyAgeList, payoutFloatList, policyTypeList]
-    histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
+    hist_data = [policyAgeList, payoutFloatList, lastClaim]
+    histGrpLabels = ['Policy Age', 'Months Since Last Claim', 'Total Payout']
     # st.markdown(hist_data)
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[25.0])
 
