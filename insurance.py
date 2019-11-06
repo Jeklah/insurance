@@ -100,13 +100,9 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 # ated with agelist
 # histogram with lines for policy age against payout and policy type
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    st.markdown(type(policyAgeList))
-#    st.markdown(policyAgeList)
-    st.markdown(type(payout))
+
     payoutFloatList = np.asarray(payout)
-#    st.markdown(payout)
-    st.markdown(type(policyTypeList))
-#    st.markdown(policyTypeList)
+
     hist_data = [policyAgeList, payoutFloatList, policyTypeList]
     histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
     # st.markdown(hist_data)
