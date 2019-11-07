@@ -26,16 +26,8 @@ employed = st.sidebar.multiselect(
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
-
-lastClaimList = [range(0, 75)]
-policyAgeList2 = [range(1, policyAgeArrSldVal+1)]
 policyAgeList = policyAgeArr.tolist()
-policyTypeList = df['Policy Type'].tolist()
-policyTypeArr = df['Policy Type'].to_numpy()
-policyTypeDf = df['Policy Type']
-policyAgeDf = pd.Series(policyAgeArr)
 payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned').tolist()
-# st.markdown(payout)
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -98,17 +90,13 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         width=800
     )
     points & bars
-# hist_data content needs to be same length, so payout needs to be associa
-# ated with agelist
-# histogram with lines for policy age against payout and policy type
+
+# Graph that took a lot of effort but looks shit with this data/columns.
+# Keeping for reference.
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
 
-    st.markdown(type(policyAgeList))
-    st.markdown(type(payout))
-    st.markdown(type(lastClaim))
     hist_data = [policyAgeList, payout, lastClaim]
     histGrpLabels = ['Policy Age', 'Total Payout', 'Months Since Last Claim']
-    # st.markdown(hist_data)
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[.05, .1, .2])
 
     st.plotly_chart(fig)
