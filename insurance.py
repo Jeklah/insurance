@@ -1,3 +1,4 @@
+import time
 import math
 import array
 import streamlit as st
@@ -94,10 +95,13 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
 # Graph that took a lot of effort but looks shit with this data/columns.
 # Keeping for reference.
 if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-
+    progressBar = st.progress(0)
     hist_data = [policyAgeList, payout, lastClaim]
     histGrpLabels = ['Policy Age', 'Total Payout', 'Months Since Last Claim']
     fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[.05, .1, .2])
 
     st.plotly_chart(fig)
 
+    for percent_complete in range(1, 100):
+        time.sleep(0.1)
+        progressBar.progress(percent_complete + 1)
