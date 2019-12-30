@@ -47,7 +47,14 @@ policyInception = df[(df['Months Since Policy Inception'].isin(policyAgeList))]
 lastClaim = pd.to_numeric(df['Months Since Last Claim'], downcast='unsigned').tolist()
 
 st.markdown(len(policyInception))
-filteredDf = df[(df['Education'].isin(educationLvl)) &
+if (len(policyInception) == 0):
+    filteredDf = df[(df['Education'].isin(educationLvl)) &
+                    (df['State'].isin(states)) &
+                    (df['Coverage'].isin(coverageLvl)) &
+                    (df['EmploymentStatus'].isin(employed)) &
+                    (df['Gender'] == gender)]
+else:
+    filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
