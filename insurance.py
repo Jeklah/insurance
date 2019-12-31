@@ -25,6 +25,7 @@ coverageLvl = st.sidebar.multiselect(
 employed = st.sidebar.multiselect(
     'Employment status?', df['EmploymentStatus'].unique())
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
+# If policy age is 0 (default value), no records show up in filtered df, as obv no policies exist with age of 0
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
