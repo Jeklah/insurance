@@ -15,14 +15,11 @@ df = st.cache(pd.read_csv)('Auto_Insurance_Claims_Sample.csv')
 gender = df['Gender']
 
 # Setting up the sidebar menu
-educationLvl = st.sidebar.multiselect(
-    'Show clients with education level of:', df['Education'].unique())
-states = st.sidebar.multiselect(
-    'Show clients living in state:', df['State'].unique())
-coverageLvl = st.sidebar.multiselect(
-    'Show clients with coverage level:', df['Coverage'].unique())
-employed = st.sidebar.multiselect(
-    'Employment status?', df['EmploymentStatus'].unique())
+educationLvl = st.sidebar.multiselect('Show clients with education level of:', df['Education'].unique())
+states = st.sidebar.multiselect('Show clients living in state:', df['State'].unique())
+coverageLvl = st.sidebar.multiselect('Show clients with coverage level:', df['Coverage'].unique())
+employed = st.sidebar.multiselect('Employment status?', df['EmploymentStatus'].unique())
+
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
 
