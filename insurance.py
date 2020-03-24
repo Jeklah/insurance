@@ -1,3 +1,4 @@
+import time
 import math
 import array
 import streamlit as st
@@ -21,17 +22,11 @@ coverageLvl = st.sidebar.multiselect('Show clients with coverage level:', df['Co
 employed = st.sidebar.multiselect('Employment status?', df['EmploymentStatus'].unique())
 
 st.sidebar.markdown('Do you want to look up Male or Female clients?')
+# If policy age is 0 (default value), no records show up in filtered df, as obv no policies exist with age of 0
 policyAgeArrSldVal = st.sidebar.slider('Policy Age in Months:', 0, 120, 0, 1)
-
 policyAgeArr = array.array('i', (range(1, policyAgeArrSldVal+1)))
 policyAgeList = policyAgeArr.tolist()
-policyTypeList = df['Policy Type'].tolist()
-
-payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned')
-st.markdown(payout)
-# st.markdown(policyAgeArr)
-# st.markdown(policyAgeList)
-# st.markdown(policyAgeArrSldVal)
+payout = pd.to_numeric(df['Claim Amount'] , downcast='unsigned').tolist()
 
 # Filter data_frame
 if len(educationLvl) == 0:
@@ -47,9 +42,17 @@ if st.sidebar.checkbox('Male'):
 if st.sidebar.checkbox('Female'):
     gender = 'F'
 policyInception = df[(df['Months Since Policy Inception'].isin(policyAgeList))]
+lastClaim = pd.to_numeric(df['Months Since Last Claim'], downcast='unsigned').tolist()
 
 st.markdown(len(policyInception))
-filteredDf = df[(df['Education'].isin(educationLvl)) &
+if (len(policyInception) == 0):
+    filteredDf = df[(df['Education'].isin(educationLvl)) &
+                    (df['State'].isin(states)) &
+                    (df['Coverage'].isin(coverageLvl)) &
+                    (df['EmploymentStatus'].isin(employed)) &
+                    (df['Gender'] == gender)]
+else:
+    filteredDf = df[(df['Education'].isin(educationLvl)) &
                 (df['State'].isin(states)) &
                 (df['Coverage'].isin(coverageLvl)) &
                 (df['EmploymentStatus'].isin(employed)) &
@@ -93,16 +96,17 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
         width=800
     )
     points & bars
-# hist_data content needs to be same length, so payout needs to be associa
-# ated with agelist
-# histogram with lines for policy age against payout and policy type
-if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
-    hist_data = df[(df['Months Since Policy Inception'].isin(policyAgeList)) &
-                    (df['Total Claim Amount'].isin(payout))]
 
-    histGrpLabels = ['Policy Age', 'Policy Type', 'Total Payout']
-    st.markdown(hist_data)
-    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=25.0)
+# Graph that took a lot of effort but looks shit with this data/columns.
+# Keeping for reference.
+if st.checkbox('Would you like to see a histogram for policy age and type against payout?'):
+    progressBar = st.progress(0)
+    hist_data = [policyAgeList, payout, lastClaim]
+    histGrpLabels = ['Policy Age', 'Total Payout', 'Months Since Last Claim']
+    fig = ff.create_distplot(hist_data, histGrpLabels, bin_size=[.05, .1, .2])
 
     st.plotly_chart(fig)
 
+    for percent_complete in range(1, 100):
+        time.sleep(0.1)
+        progressBar.progress(percent_complete + 1)
