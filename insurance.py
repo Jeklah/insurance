@@ -95,6 +95,7 @@ if st.checkbox('Would you like to see a comparison between total claim amount an
     ).properties(
         width=800
     )
+    # Plotting the graphs
     points & bars
 
 # Graph that took a lot of effort but looks shit with this data/columns.
